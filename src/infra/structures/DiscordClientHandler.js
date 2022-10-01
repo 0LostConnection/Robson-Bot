@@ -1,0 +1,77 @@
+const { Client } = require('discord.js')
+const { readdirSync } = require('fs')
+const { join } = require('path')
+
+module.exports = class extends Client {
+    constructor(options) {
+        super(options)
+        this.commandsList = []
+        this.simpleCommandsList = []
+        this.loadCommands(),
+        this.loadEvents()
+    }
+
+    registerCommands(commandsCategoriesPath = 'src/commands') {
+        const commandsCategories = readdirSync(commandsCategoriesPath)
+
+        for (const category of commandsCategories) {
+            const commandsFilesList = readdirSync(`${commandsCategoriesPath}/${category}`)
+
+            for (const commandFile of commandsFilesList) {
+                const commandClass = require(join(process.cwd(), `${commandsCategoriesPath}/${category}/${commandFile}`))
+
+                const command = new (commandClass)(this)
+
+                if (command.disabled) continue
+                this.simpleCommandsList.push({ name: command.name, description: command.description, default_member_permissions: command.default_member_permissions })
+                console.log(this.simpleCommandsList)
+            }
+        }
+
+        const { REST } = require('@discordjs/rest')
+        const { Routes } = require('discord-api-types/v10')
+        const rest = new REST({ version: '10' }).setToken(process.env.BOT_TOKEN);
+        (async () => {
+            try {
+                await rest.put(Routes.applicationCommands(this.user.id), {
+                    body: this.simpleCommandsList
+                })
+                console.log('Loaded [/] slash commands.')
+
+            } catch (err) {
+                console.log(`Error loading [/] slash commands.\n${err}`)
+            }
+        })()
+    }
+
+    loadCommands(commandsCategoriesPath = 'src/commands') {
+        const commandsCategories = readdirSync(commandsCategoriesPath)
+
+        for (const category of commandsCategories) {
+            const commandsFilesList = readdirSync(`${commandsCategoriesPath}/${category}`)
+
+            for (const commandFile of commandsFilesList) {
+                const commandClass = require(join(process.cwd(), `${commandsCategoriesPath}/${category}/${commandFile}`))
+                const command = new (commandClass)(this)
+
+                if (command.disable) continue
+                this.commandsList.push(command)
+            }
+        }
+    }
+
+    loadEvents(eventsTypesPath = 'src/events') {
+        const eventsCategories = readdirSync(eventsTypesPath)
+
+        for (const category of eventsCategories) {
+            const eventsFilesList = readdirSync(`${eventsTypesPath}/${category}`)
+
+            for (const eventFile of eventsFilesList) {
+                const eventClass = require(join(process.cwd(), `${eventsTypesPath}/${category}/${eventFile}`))
+                const event = new (eventClass)(this)
+
+                this.on(event.name, event.run)
+            }
+        }
+    }
+}

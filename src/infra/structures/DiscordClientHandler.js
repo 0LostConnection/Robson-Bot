@@ -20,11 +20,16 @@ module.exports = class extends Client {
             for (const commandFile of commandsFilesList) {
                 const commandClass = require(join(process.cwd(), `${commandsCategoriesPath}/${category}/${commandFile}`))
 
-                const command = new (commandClass)(this)
+                try {
+                    const command = new (commandClass)(this)
 
-                if (command.disabled) continue
-                this.simpleCommandsList.push({ name: command.name, description: command.description, default_member_permissions: command.default_member_permissions })
-                console.log(this.simpleCommandsList)
+                    if (command.disabled) continue
+                    this.simpleCommandsList.push({ name: command.name, description: command.description, default_member_permissions: command.default_member_permissions })
+                    console.log(this.simpleCommandsList)
+                } catch (err) {
+                    console.log(err)
+                }
+
             }
         }
 
@@ -52,10 +57,13 @@ module.exports = class extends Client {
 
             for (const commandFile of commandsFilesList) {
                 const commandClass = require(join(process.cwd(), `${commandsCategoriesPath}/${category}/${commandFile}`))
-                const command = new (commandClass)(this)
-
-                if (command.disable) continue
-                this.commandsList.push(command)
+                try {
+                    const command = new (commandClass)(this)
+                    if (command.disabled) continue
+                    this.commandsList.push(command)
+                } catch (err) {
+                    console.log(err)
+                }
             }
         }
     }
@@ -68,9 +76,13 @@ module.exports = class extends Client {
 
             for (const eventFile of eventsFilesList) {
                 const eventClass = require(join(process.cwd(), `${eventsTypesPath}/${category}/${eventFile}`))
-                const event = new (eventClass)(this)
 
-                this.on(event.name, event.run)
+                try {
+                    const event = new (eventClass)(this)
+                    this.on(event.name, event.run)
+                } catch (err) {
+                    console.log(err)
+                }
             }
         }
     }

@@ -4,7 +4,7 @@ class Command {
         this.name = options.name
         this.description = options.description
         this.options = options.options
-        this.disable = options.disabled
+        this.disabled = options.disabled
         this.ownerOnly = options.ownerOnly
         //this.permissions = options.permissions
         this.default_member_permissions = options.default_member_permissions

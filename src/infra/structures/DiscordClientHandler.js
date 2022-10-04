@@ -1,17 +1,18 @@
-const { Client } = require('discord.js')
+const { Client, Collection } = require('discord.js')
 const { readdirSync } = require('fs')
 const { join } = require('path')
 
 module.exports = class extends Client {
     constructor(options) {
         super(options)
-        this.commandsList = []
-        this.simpleCommandsList = []
-        this.loadCommands(),
+        this.commands = []
+        this.loadCommands()
         this.loadEvents()
+        this.deploy_commands()
     }
 
-    registerCommands(commandsCategoriesPath = 'src/commands') {
+    deploy_commands(commandsCategoriesPath = 'src/commands') {
+        const commandsToDeploy = []
         const commandsCategories = readdirSync(commandsCategoriesPath)
 
         for (const category of commandsCategories) {
@@ -22,10 +23,17 @@ module.exports = class extends Client {
 
                 try {
                     const command = new (commandClass)(this)
-
                     if (command.disabled) continue
-                    this.simpleCommandsList.push({ name: command.name, description: command.description, default_member_permissions: command.default_member_permissions })
-                    console.log(this.simpleCommandsList)
+                    commandsToDeploy.push(
+                        {
+                            name: command.name,
+                            description: command.description,
+                            options: command.options,
+                            default_member_permissions: command.default_member_permissions,
+                            dm_permission: command.dm_permission,
+                        }
+                    )
+                    console.log(commandsToDeploy)
                 } catch (err) {
                     console.log(err)
                 }
@@ -38,18 +46,19 @@ module.exports = class extends Client {
         const rest = new REST({ version: '10' }).setToken(process.env.BOT_TOKEN);
         (async () => {
             try {
-                await rest.put(Routes.applicationCommands(this.user.id), {
-                    body: this.simpleCommandsList
+                await rest.put(Routes.applicationCommands(process.env.CLIENT_ID), {
+                    body: commandsToDeploy
                 })
-                console.log('Loaded [/] slash commands.')
+                console.log(`Registered ${commandsToDeploy.length} [/] slash commands.`)
 
             } catch (err) {
-                console.log(`Error loading [/] slash commands.\n${err}`)
+                console.log(`Error registering [/] slash commands.\n${err}`)
             }
         })()
     }
-
+    
     loadCommands(commandsCategoriesPath = 'src/commands') {
+        this.commands = new Collection()
         const commandsCategories = readdirSync(commandsCategoriesPath)
 
         for (const category of commandsCategories) {
@@ -57,15 +66,18 @@ module.exports = class extends Client {
 
             for (const commandFile of commandsFilesList) {
                 const commandClass = require(join(process.cwd(), `${commandsCategoriesPath}/${category}/${commandFile}`))
+
                 try {
                     const command = new (commandClass)(this)
                     if (command.disabled) continue
-                    this.commandsList.push(command)
-                } catch (err) {
+                    this.commands.set(command.name, command)
+                }
+                catch (err) {
                     console.log(err)
                 }
             }
         }
+
     }
 
     loadEvents(eventsTypesPath = 'src/events') {

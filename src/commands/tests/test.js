@@ -16,7 +16,7 @@ module.exports = class extends Command {
         super(client, {
             name: 'test',
             description: 'teste.',
-            disabled: true,
+            disabled: false,
             default_member_permissions: Number(PermissionFlagsBits.ManageThreads)
         })
     }

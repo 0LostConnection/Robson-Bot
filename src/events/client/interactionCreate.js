@@ -8,8 +8,8 @@ module.exports = class extends eventStructure {
     }
 
     run = (interaction) => {
-        if (!interaction.isCommand()) return
-        const command = this.client.commandsList.find(cmd => cmd.name === interaction.commandName)
+        if (!interaction.isChatInputCommand()) return
+        const command = this.client.commands.get(interaction.commandName)
 
         try {
             command.run(interaction)

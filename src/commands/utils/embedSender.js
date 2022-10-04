@@ -1,13 +1,15 @@
 const Command = require('../../infra/structures/CommandStructure')
 const { PermissionFlagsBits } = require('discord.js')
+const ValidateJson = require('../../infra/utils/ValidateJSON')
 
 module.exports = class extends Command {
     constructor(client) {
         super(client, {
-            name: 'test2',
+            name: 'webhook',
             description: 'Envia um embed baseado no código JSON provido.',
             disabled: false,
             default_member_permissions: Number(PermissionFlagsBits.ManageGuild),
+            dm_permission: false,
             options: [
                 {
                     type: 7,
@@ -23,8 +25,8 @@ module.exports = class extends Command {
                 },
                 {
                     type: 3,
-                    name: 'thread',
-                    description: 'ID da thread.',
+                    name: 'forum',
+                    description: 'ID do fórum.',
                     required: false
                 }
             ]
@@ -32,38 +34,42 @@ module.exports = class extends Command {
     }
 
     run = async (interaction) => {
+        // Get channel object with channelId
         let data = {}
         const channelId = interaction.options.getChannel('canal').id
-        const channel = interaction.guild.channels.cache.get(channelId)
-
-        try {
-            const embedJSON = JSON.parse(interaction.options.getString('json')) //verificar se o json é válido ultils/isJson https://learnersbucket.com/examples/javascript/how-to-validate-json-in-javascript/
-            data.embeds = [embedJSON]
-        }
-        catch (err) {
-            interaction.reply({ content: `**Ocorreu um erro:**\n${err.message}`, ephemeral: true })
-            console.log(err.message)
+        const channelObj = interaction.guild.channels.cache.get(channelId)
+        
+        // Validate JSON. If true, return the parsed JSON object
+        const optionsJson = ValidateJson(interaction.options.getString('json'))
+        if (optionsJson) {
+            data.embeds = [optionsJson]
+        } else {
+            interaction.reply({ content: `**Ocorreu um erro:**\nO JSON não é válido!`, ephemeral: true })
             return
         }
 
-        const threadId = interaction.options.getString('thread')
-        if (threadId) {
-            if(channel.type !== 15) return interaction.reply({ content: `**Ocorreu um erro:**\nO canal provido não é um fórum!`, ephemeral: true })
-            data.threadId = threadId
+        // Check if the forum id provided is really a forum channel
+        const forumId = interaction.options.getString('forum')
+        if (forumId) {
+            if (channelObj.type !== 15) return interaction.reply({ content: `**Ocorreu um erro:**\nO canal provido não é um fórum!`, ephemeral: true })
+            data.threadId = forumId
         }
 
-        const webhooks = await channel.fetchWebhooks()
+        // Check if the provided channel is a category
+        if(channelObj.type == 4) return interaction.reply({ content: `**Ocorreu um erro:**\n${channelObj} não é um canal!`, ephemeral: true })
+
+        const webhooks = await channelObj.fetchWebhooks()
         const webhook = webhooks.first()
         if (!webhook) return interaction.reply({ content: '**Ocorreu um erro:**\nO canal não possui webhooks.', ephemeral: true })
 
         console.log(data)
         webhook.send(data)
             .then(() => {
-                interaction.reply({content: `Embed enviado! Confira: ${channel}`, ephemeral: true})
+                interaction.reply({ content: `Embed enviado! Confira: ${channelObj}`, ephemeral: true })
             })
             .catch(err => {
                 interaction.reply({ content: `**Ocorreu um erro:**\n${err.message}`, ephemeral: true })
-                console.log(err.message)
+                console.log(err)
             })
     }
 }

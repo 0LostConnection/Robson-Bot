@@ -13,6 +13,6 @@ Status          Online
 Nome            ${this.client.user.tag}
 Servidores      ${this.client.guilds.cache.size}
         `)
-
+        this.client.deployCommands()
     }
 }

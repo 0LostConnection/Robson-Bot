@@ -8,10 +8,9 @@ module.exports = class extends Client {
         this.commands = []
         this.loadCommands()
         this.loadEvents()
-        this.deploy_commands()
     }
 
-    deploy_commands(commandsCategoriesPath = 'src/commands') {
+    deployCommands(commandsCategoriesPath = 'src/commands') {
         const commandsToDeploy = []
         const commandsCategories = readdirSync(commandsCategoriesPath)
 
@@ -33,7 +32,6 @@ module.exports = class extends Client {
                             dm_permission: command.dm_permission,
                         }
                     )
-                    console.log(commandsToDeploy)
                 } catch (err) {
                     console.log(err)
                 }

@@ -14,4 +14,4 @@ process.openStdin('unhandledRejection', error => {
     console.error("Error:\n", error)
 })
 
-botInstance.login(process.env.BOT_TOKEN)
+botInstance.login(process.env.DEV_BOT_TOKEN)

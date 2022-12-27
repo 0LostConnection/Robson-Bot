@@ -41,10 +41,10 @@ module.exports = class extends Client {
 
         const { REST } = require('@discordjs/rest')
         const { Routes } = require('discord-api-types/v10')
-        const rest = new REST({ version: '10' }).setToken(process.env.BOT_TOKEN);
+        const rest = new REST({ version: '10' }).setToken(process.env.DEV_BOT_TOKEN);
         (async () => {
             try {
-                await rest.put(Routes.applicationCommands(process.env.CLIENT_ID), {
+                await rest.put(Routes.applicationCommands(process.env.DEV_CLIENT_ID), {
                     body: commandsToDeploy
                 })
                 console.log(`Registered ${commandsToDeploy.length} [/] slash commands.`)

@@ -1,4 +1,5 @@
 const eventStructure = require(`../../infra/structures/EventStructure`)
+const closeTicket =  require(`../../infra/ticket/closeTicket`)
 
 module.exports = class extends eventStructure {
     constructor(client) {
@@ -8,15 +9,12 @@ module.exports = class extends eventStructure {
     }
 
     run = (interaction) => {
-        if (!interaction.isChatInputCommand()) return
+        if (!interaction.isButton()) return
 
-        const command = this.client.commands.get(interaction.commandName)
-        if (!command) return
-        
-        try {
-            command.run(interaction)
-        } catch (err) {
-            console.log(err)
+        switch (interaction.customId) {
+            case "ticket_close":
+                closeTicket(interaction)
+                break
         }
     }
 }

@@ -1,14 +1,13 @@
 const { PermissionFlagsBits, AttachmentBuilder } = require('discord.js')
 const Command = require('../../infra/structures/CommandStructure')
 
-
 module.exports = class extends Command {
     constructor(client) {
         super(client, {
             name: 'grabber',
             description: 'teste.',
             disabled: false,
-            default_member_permissions: Number(PermissionFlagsBits.ManageThreads),
+            default_member_permissions: Number(PermissionFlagsBits.ManagGuild),
             options: [
                 {
                     name: 'canal',
@@ -30,9 +29,9 @@ module.exports = class extends Command {
                     message.embeds.forEach(embed => {
                         const embedObject = embed.toJSON()
                         delete embedObject.type
-                        delete embedObject.image.proxy_url
-                        delete embedObject.image.height
-                        delete embedObject.image.width
+                        delete embedObject.image?.proxy_url
+                        delete embedObject.image?.height
+                        delete embedObject.image?.width
                         if (embedObject.description.length > 2000) {
                             const atc = new AttachmentBuilder(Buffer.from(JSON.stringify(embedObject, null, 4)), { name: `${channel.name}.txt` })
                             interaction.channel.send({ content: `${channel}`, files: [atc] })

@@ -1,7 +1,6 @@
 const DiscordClientHandler = require('./src/infra/structures/DiscordClientHandler')
-// const { BOT_TOKEN } = require('./assets/config.json')
 const { GatewayIntentBits } = require('discord.js')
-require('dotenv').config() //process.env.BOT_TOKEN
+require('dotenv').config()
 
 const botInstance = new DiscordClientHandler({
     intents: [
@@ -10,8 +9,6 @@ const botInstance = new DiscordClientHandler({
     ]
 })
 
-process.openStdin('unhandledRejection', error => {
-    console.error("Error:\n", error)
-})
+botInstance.config = require('./config.js')
 
-botInstance.login(process.env.DEV_BOT_TOKEN)
+botInstance.login(process.env.BOT_TOKEN)

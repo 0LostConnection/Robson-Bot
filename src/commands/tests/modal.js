@@ -1,16 +1,13 @@
-const { PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } = require('discord.js')
+const { PermissionFlagsBits, ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } = require('discord.js')
 const Command = require('../../infra/structures/CommandStructure')
-const { ClearColors } = require('../../infra/utils/Colors')
-const database = require('../../database/Database')
-
 
 module.exports = class extends Command {
     constructor(client) {
         super(client, {
             name: 'modal',
             description: 'Modal test.',
-            disabled: false,
-            default_member_permissions: Number(PermissionFlagsBits.ManageThreads)
+            disabled: true,
+            default_member_permissions: Number(PermissionFlagsBits.ManagGuild)
         })
     }
 

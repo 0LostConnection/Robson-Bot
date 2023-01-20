@@ -1,0 +1,1 @@
+// Factory para automatizar o setup_ticket

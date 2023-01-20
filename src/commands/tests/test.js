@@ -1,6 +1,5 @@
 const { PermissionFlagsBits, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js')
 const Command = require('../../infra/structures/CommandStructure')
-const { ClearColors } = require('../../infra/utils/Colors')
 //const database = require('../../database/Database')
 
 const replyButton = new ActionRowBuilder()
@@ -17,23 +16,25 @@ module.exports = class extends Command {
         super(client, {
             name: 'test',
             description: 'teste.',
-            disabled: true,
-            default_member_permissions: Number(PermissionFlagsBits.ManageThreads)
+            disabled: false,
+            default_member_permissions: Number(PermissionFlagsBits.ManagGuild)
         })
     }
 
     run = async (interaction) => {
+        const { Colors } = interaction.client.config
 
         let embed = new EmbedBuilder()
             .setTitle(`Perfil de ${interaction.user.tag}`)
-            .setColor(ClearColors.Yellow)
+            .setColor(Colors.clear.Yellow)
             .setDescription(`[Clique aqui para acessar o perfil de ${interaction.user.tag}](https://discord.com/users/437249534096048130)`)
             .setFooter({ text: 'Ou clique no botão abaixo.' })
 
-        await interaction.deferReply({ epemeral: true })
+        interaction.reply({ embeds: [embed], components: [replyButton], ephemeral: true })
+        //await interaction.deferReply({ epemeral: true })
         /* const db = await database(1014555852469964920)
-        db.disconnect() */
-        await interaction.editReply({ embeds: [embed], components: [replyButton], ephemeral: true })
+        db.disconnect() 
+        await interaction.editReply({ embeds: [embed], components: [replyButton], ephemeral: true })*/
     }
 
 }

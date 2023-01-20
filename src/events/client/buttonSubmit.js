@@ -12,7 +12,7 @@ module.exports = class extends eventStructure {
         if (!interaction.isButton()) return
 
         switch (interaction.customId) {
-            case "ticket_close":
+            case "ticket:close_channel":
                 closeTicket(interaction)
                 break
         }

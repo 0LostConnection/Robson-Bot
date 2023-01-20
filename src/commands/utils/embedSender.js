@@ -7,7 +7,7 @@ module.exports = class extends Command {
         super(client, {
             name: 'webhook',
             description: 'Envia um embed baseado no código JSON provido.',
-            disabled: false,
+            disabled: true,
             default_member_permissions: Number(PermissionFlagsBits.ManageGuild),
             dm_permission: false,
             options: [

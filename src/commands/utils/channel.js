@@ -1,5 +1,4 @@
 const Command = require('../../infra/structures/CommandStructure')
-const { PermissionFlagsBits } = require('discord.js')
 
 module.exports = class extends Command {
     constructor(client) {

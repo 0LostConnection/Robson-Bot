@@ -1,5 +1,5 @@
-// Lock; Unlock; View; Unview;
 const Command = require('../../infra/structures/CommandStructure')
+const { PermissionFlagsBits } = require('discord.js')
 
 module.exports = class extends Command {
     constructor(client) {
@@ -36,9 +36,7 @@ module.exports = class extends Command {
 
     run = (interaction) => {
         // Filtrar cargo da pessoa por moderador, administrador e eventos
-        // channel object
-        const subCommand = interaction.options.getSubcommand()
-        switch(subCommand) {
+        /* switch(subCommand) {
             case "lock":
                 break
             case "unlock": 
@@ -47,8 +45,14 @@ module.exports = class extends Command {
                 break
             case "unview":
                 break 
+        } */
+        const { adminRoleId, modRoleId, eventsModRoleId } = interaction.client.config
+        if (interaction.member.roles.cache.find(r => r.id === adminRoleId) || interaction.member.roles.cache.find(r => r.id === modRoleId) || interaction.member.roles.cache.find(r => r.id === eventsModRoleId)) {
+            const subCommand = interaction.options.getSubcommand()
+            require(`../../subCommands/channel/${subCommand}`)(this.client, interaction)
+        } else {
+            interaction.reply({ content: "Not ok" })
+            return
         }
-        require(`../../subCommands/channel/${subCommand}`)(this.client, interaction)
-
     }
 }

@@ -1,10 +1,15 @@
 const { EmbedBuilder } = require('discord.js')
 
 module.exports = {
-    //Guild
+    // Guild
     guildId: "",
 
-    //Webhooks
+    // Guild Roles
+    staffRoleId: "1023701403371323463",
+    adminRoleId: "1023704577746403419",
+    modRoleId: "1023704709812465707",
+    eventsModRoleId: "1023704577746403419",
+    // Webhooks
     webhooks: {
         error: {
             id: '',
@@ -13,7 +18,7 @@ module.exports = {
     },
 
     Embeds: {
-        //ERROR: ({ title, description, author, footer }) => {
+        // ERROR: ({ title, description, author, footer }) => {
         ERROR: (description, interaction) => {
             const embed = new EmbedBuilder()
                 .setDescription(description)
@@ -37,7 +42,7 @@ module.exports = {
         }
     },
 
-    //Colors
+    // Colors
     Colors: {
         clear: {
             Red: "#FF0400",

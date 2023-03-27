@@ -45,12 +45,14 @@ module.exports = class extends Command {
             case "unview":
                 break 
         } */
+        const { Embeds } = interaction.client.config
         const { adminRoleId, modRoleId, eventsModRoleId } = interaction.client.config
+
         if (interaction.member.roles.cache.find(r => r.id === adminRoleId) || interaction.member.roles.cache.find(r => r.id === modRoleId) || interaction.member.roles.cache.find(r => r.id === eventsModRoleId)) {
             const subCommand = interaction.options.getSubcommand()
             require(`../../subCommands/channel/${subCommand}`)(this.client, interaction)
         } else {
-            interaction.reply({ content: "Você não tem permissão para executar esse comando!" })
+            interaction.reply({ embeds: [Embeds.ERROR("**❌ | Você não tem permissão para executar esse comando!**", interaction)], ephemeral: true })
             return
         }
     }

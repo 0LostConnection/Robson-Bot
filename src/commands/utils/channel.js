@@ -50,7 +50,7 @@ module.exports = class extends Command {
             const subCommand = interaction.options.getSubcommand()
             require(`../../subCommands/channel/${subCommand}`)(this.client, interaction)
         } else {
-            interaction.reply({ content: "Not ok" })
+            interaction.reply({ content: "Você não tem permissão para executar esse comando!" })
             return
         }
     }

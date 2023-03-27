@@ -12,22 +12,22 @@ module.exports = class extends Command {
                 {
                     type: 1,
                     name: "lock",
-                    description: "lock"
+                    description: "Trava o chat para que @everyone não consiga enviar mensagens."
                 },
                 {
                     type: 1,
                     name: "unlock",
-                    description: "unlock"
+                    description: "Destrava o chat."
                 },
                 {
                     type: 1,
                     name: "view",
-                    description: "view"
+                    description: "Torna o chat visível para @everyone."
                 },
                 {
                     type: 1,
                     name: "unview",
-                    description: "unview"
+                    description: "Torna o chat invisível para @everyone."
                 },
             ]
         })

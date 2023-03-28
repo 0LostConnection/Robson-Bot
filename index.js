@@ -10,4 +10,4 @@ const botInstance = new DiscordClientHandler({
 })
 
 botInstance.config = require('./config.js')
-botInstance.login(process.env.BOT_TOKEN)
+botInstance.login("MTA5MDA5NDMyOTQ0OTY4MDkyNg.GAaIa9.AzhVqlfkeBLYmYSyOxOftW3lcXFNpy513SgEcA")

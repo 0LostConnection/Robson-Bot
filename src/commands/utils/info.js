@@ -29,6 +29,6 @@ module.exports = class extends Command {
             .setFooter({ text: "Mini Fazenda", iconURL: interaction.guild.iconURL({ animated: true }) })
             .setColor(Colors.custom.Emerald)
 
-        interaction.channel.send({ embeds: [embed], components: [contactButton]})
+        interaction.reply({ embeds: [embed], components: [contactButton]})
     }
 }

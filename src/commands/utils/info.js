@@ -25,7 +25,7 @@ module.exports = class extends Command {
         const { Colors } = interaction.client.config
         const embed = new EmbedBuilder()
             .setTitle("Robson Bot")
-            .setDescription("Versão desenvolvida especialmente para o **Mini Fazenda**.\n\n**Criado por**: `LostConnection#4460`\n**Versão**: `1.0.1`\n**Hospedagem**: `Discloud - Plano Gratuito`")
+            .setDescription(`Versão desenvolvida especialmente para o **Mini Fazenda**.\n\n**Criado por**: \`LostConnection#4460\`\n**Versão**: \`${interaction.client.config.version}\`\n**Hospedagem**: \`Discloud - Plano Gratuito\``)
             .setFooter({ text: "Mini Fazenda", iconURL: interaction.guild.iconURL({ animated: true }) })
             .setColor(Colors.custom.Emerald)
 

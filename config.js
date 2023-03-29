@@ -18,6 +18,8 @@ module.exports = {
         }
     },
 
+    version: require('./package.json').version,
+
     Embeds: {
         // ERROR: ({ title, description, author, footer }) => {
         ERROR: (description, interaction) => {

@@ -25,6 +25,19 @@ module.exports = {
     // Bot
     version: require('./package.json').version,
 
+    statusArray: [
+        {
+            type: 'WATCHING',
+            content: `Mini Fazenda!`,
+            status: 'online'
+        },
+        {
+            type: 'PLAYING',
+            content: `/info`,
+            status: 'online'
+        }
+    ],
+
     Embeds: {
         // ERROR: ({ title, description, author, footer }) => {
         ERROR: (description, interaction) => {

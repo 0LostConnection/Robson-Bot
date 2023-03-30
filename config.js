@@ -4,13 +4,17 @@ module.exports = {
     // Guild
     guildId: "826168701987455016",
 
-    // Guild Roles
+    // Guild - Roles
     staffRoleId: "852209223289798696",
     adminRoleId: "981330093806866432",
     modRoleId: "981640630776242236",
     eventsModRoleId: "981330099917975592",
+    boosterRoleId: "1090974859540037642",
 
-    // Webhooks
+    // Guild - Channels
+    boosterAnnouncementChannelId: "1014557819455950848",
+
+    // Guild - Webhooks
     webhooks: {
         error: {
             id: '',
@@ -18,6 +22,7 @@ module.exports = {
         }
     },
 
+    // Bot
     version: require('./package.json').version,
 
     Embeds: {
@@ -74,7 +79,8 @@ module.exports = {
         custom: {
             LimeGreen: 2461555, // #258F73
             Orange: 15635286, // #ee9356
-            Emerald: 5294200 // #50C878
+            Emerald: 5294200, // #50C878
+            Booster: 16023551 // #f47fff
         }
     },
 }

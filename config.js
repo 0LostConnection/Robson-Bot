@@ -9,10 +9,10 @@ module.exports = {
     adminRoleId: "981330093806866432",
     modRoleId: "981640630776242236",
     eventsModRoleId: "981330099917975592",
-    boosterRoleId: "1090974859540037642",
+    boosterRoleId: "852596291128655885",
 
     // Guild - Channels
-    boosterAnnouncementChannelId: "1014557819455950848",
+    boosterAnnouncementChannelId: "865443408025354265",
 
     // Guild - Webhooks
     webhooks: {

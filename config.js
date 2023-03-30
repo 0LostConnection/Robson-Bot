@@ -27,12 +27,12 @@ module.exports = {
 
     statusArray: [
         {
-            type: 'WATCHING',
+            type: 3,
             content: `Mini Fazenda!`,
             status: 'online'
         },
         {
-            type: 'PLAYING',
+            type: 0,
             content: `/info`,
             status: 'online'
         }

@@ -11,9 +11,6 @@ module.exports = {
     eventsModRoleId: "981330099917975592",
     boosterRoleId: "852596291128655885",
 
-    // Guild - Channels
-    boosterAnnouncementChannelId: "865443408025354265",
-
     // Guild - Webhooks
     webhooks: {
         error: {

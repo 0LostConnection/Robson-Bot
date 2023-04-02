@@ -1,8 +1,9 @@
 module.exports = async (guildId) => {
     if (!guildId) return console.log('Provide and ID!')
-    const { connect } = require('mongoose')
+    const { connect, set } = require('mongoose')
     const Models = require('./Models')
-
+    
+    set("strictQuery", true)
     const connection = await connect(process.env.DATABASE_SECRET)
 
     console.log('\x1b[32m%s\x1b[0m', 'Banco de dados conectado com sucesso!')

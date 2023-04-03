@@ -1,11 +1,13 @@
 const DiscordClientHandler = require('./src/infra/structures/DiscordClientHandler')
 const { GatewayIntentBits } = require('discord.js')
-require('dotenv').config({ path: './release.env' })
+require('dotenv').config({ path: './dev.env' })
 
 const botInstance = new DiscordClientHandler({
     intents: [
         GatewayIntentBits.Guilds,
-        GatewayIntentBits.GuildMembers
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent
     ]
 })
 

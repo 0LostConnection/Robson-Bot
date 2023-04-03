@@ -5,7 +5,9 @@ require('dotenv').config({ path: './dev.env' })
 const botInstance = new DiscordClientHandler({
     intents: [
         GatewayIntentBits.Guilds,
-        GatewayIntentBits.GuildMembers
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent
     ]
 })
 

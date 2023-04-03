@@ -12,13 +12,13 @@ module.exports = {
     embedSetupRoles: new EmbedBuilder()
         .setTitle('Configuração - Cargos')
         .setColor(Colors.custom.Emerald)
-        .setDescription(`**Escolha uma das configurações de cargo abaixo para alterar:**`),
+        .setDescription(`**Escolha uma das configurações de \`@cargo\` abaixo para alterar:**`),
     //.setImage('https://i.imgur.com/UWJwuGw.png'),
 
     embedSetupChannels: new EmbedBuilder()
         .setTitle('Configuração - Canais')
         .setColor(Colors.custom.Emerald)
-        .setDescription(`**Escolha uma das configurações de canal abaixo para alterar:**`),
+        .setDescription(`**Escolha uma das configurações de \`#canal\` abaixo para alterar:**`),
     //.setImage('https://i.imgur.com/UWJwuGw.png'),
 
     embedSetupCancel: new EmbedBuilder()
@@ -39,11 +39,11 @@ module.exports = {
                 .setStyle(ButtonStyle.Secondary)
                 .setLabel('Cargos')
                 .setEmoji('💬'),
-            new ButtonBuilder()
+            /* new ButtonBuilder()
                 .setCustomId('button:SetupCancel')
                 .setStyle(ButtonStyle.Danger)
                 .setLabel('Cancelar')
-                .setEmoji('🙅')
+                .setEmoji('🙅') */
         ),
 
     buttonsSetupRoles: new ActionRowBuilder()

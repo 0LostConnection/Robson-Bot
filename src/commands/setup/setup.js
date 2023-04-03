@@ -51,10 +51,6 @@ module.exports = class extends Command {
                                 buttonCollector.stop()
                                 roleCollector(i, 'boostersRoleId')
                                 break
-                            case 'button:SetupCancel':
-                                buttonCollector.stop()
-                                i.update({ embeds: [messageComponents.embedSetupCancel], components: [] })
-                                break
                         }
                     })
                     break
@@ -70,16 +66,12 @@ module.exports = class extends Command {
                                 buttonCollector.stop()
                                 channelCollector(i, 'boosterAnnouncementChannelId')
                                 break
-                            case 'button:SetupChannels:Cancel':
-                                buttonCollector.stop()
-                                i.update({ embeds: [messageComponents.embedSetupCancel], components: [] })
-                                break
                         }
                     })
                     break
                 case 'button:SetupCancel':
                     buttonCollector.stop()
-                    i.update({ embeds: [messageComponents.embedSetupCancel], components: [] })
+                    i.channel.send({ embeds: [messageComponents.embedSetupCancel], components: [] })
                     break
             }
         })

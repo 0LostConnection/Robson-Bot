@@ -1,4 +1,4 @@
-const { embedSetup, embedSetupRoles, embedSetupChannels, buttonsSetup, buttonsSetupRoles, buttonsSetupChannels } = require('../../infra/setup/messageComponents')
+const messageComponents = require('../../infra/setup/messageComponents')
 const { roleCollector, channelCollector } = require('../../infra/setup/setupFunctions')
 const Command = require('../../infra/structures/CommandStructure')
 const { PermissionFlagsBits } = require('discord.js')
@@ -15,7 +15,7 @@ module.exports = class extends Command {
 
     run = (interaction) => {
         // First setup page
-        interaction.reply({ embeds: [embedSetup], components: [buttonsSetup] })
+        interaction.reply({ embeds: [messageComponents.embedSetup], components: [messageComponents.buttonsSetup] })
 
         const buttonFilter = i => i.user.id === interaction.user.id
         let buttonCollector = interaction.channel.createMessageComponentCollector({ buttonFilter, time: 15000 })
@@ -24,7 +24,7 @@ module.exports = class extends Command {
         buttonCollector.on('collect', async i => {
             switch (i.customId) {
                 case 'button:SetupRoles':
-                    i.update({ embeds: [embedSetupRoles], components: [buttonsSetupRoles] })
+                    i.update({ embeds: [messageComponents.embedSetupRoles], components: [messageComponents.buttonsSetupRoles] })
                     buttonCollector.stop()
 
                     // Start of the second step: initializing collector and doing some shit
@@ -51,11 +51,15 @@ module.exports = class extends Command {
                                 buttonCollector.stop()
                                 roleCollector(i, 'boostersRoleId')
                                 break
+                            case 'button:SetupCancel':
+                                buttonCollector.stop()
+                                i.update({ embeds: [messageComponents.embedSetupCancel], components: [] })
+                                break
                         }
                     })
                     break
                 case 'button:SetupChannels':
-                    i.update({ embeds: [embedSetupChannels], components: [buttonsSetupChannels] })
+                    i.update({ embeds: [messageComponents.embedSetupChannels], components: [messageComponents.buttonsSetupChannels] })
                     buttonCollector.stop()
 
                     // Start of the second step: initializing collector and doing some shit
@@ -66,8 +70,16 @@ module.exports = class extends Command {
                                 buttonCollector.stop()
                                 channelCollector(i, 'boosterAnnouncementChannelId')
                                 break
+                            case 'button:SetupChannels:Cancel':
+                                buttonCollector.stop()
+                                i.update({ embeds: [messageComponents.embedSetupCancel], components: [] })
+                                break
                         }
                     })
+                    break
+                case 'button:SetupCancel':
+                    buttonCollector.stop()
+                    i.update({ embeds: [messageComponents.embedSetupCancel], components: [] })
                     break
             }
         })

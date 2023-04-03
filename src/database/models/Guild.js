@@ -11,7 +11,7 @@ const guildSchema = new Schema({
             adminRoleId: String,
             modRoleId: String,
             eventsModRoleId: String,
-            boosterRoleId: String
+            boostersRoleId: String
         }
     }
 })

@@ -1,4 +1,4 @@
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js')
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Embed } = require('discord.js')
 const { Colors } = require('../../../config')
 
 module.exports = {
@@ -6,20 +6,25 @@ module.exports = {
     embedSetup: new EmbedBuilder()
         .setTitle('Configuração')
         .setColor(Colors.custom.Emerald)
-        .setDescription(`**Escolha uma das categorias abaixo para configurar:**`)
-        .setImage('https://i.imgur.com/UWJwuGw.png'),
+        .setDescription(`**Escolha uma das categorias abaixo para configurar:**`),
+    //.setImage('https://i.imgur.com/UWJwuGw.png'),
 
     embedSetupRoles: new EmbedBuilder()
         .setTitle('Configuração - Cargos')
         .setColor(Colors.custom.Emerald)
-        .setDescription(`**Escolha uma das configurações de cargo abaixo para alterar:**`)
-        .setImage('https://i.imgur.com/UWJwuGw.png'),
+        .setDescription(`**Escolha uma das configurações de cargo abaixo para alterar:**`),
+    //.setImage('https://i.imgur.com/UWJwuGw.png'),
 
     embedSetupChannels: new EmbedBuilder()
         .setTitle('Configuração - Canais')
         .setColor(Colors.custom.Emerald)
-        .setDescription(`**Escolha uma das configurações de canal abaixo para alterar:**`)
-        .setImage('https://i.imgur.com/UWJwuGw.png'),
+        .setDescription(`**Escolha uma das configurações de canal abaixo para alterar:**`),
+    //.setImage('https://i.imgur.com/UWJwuGw.png'),
+
+    embedSetupCancel: new EmbedBuilder()
+        .setTitle('Operação cancelada')
+        .setColor(Colors.clear.Red)
+        .setDescription(`Ok, configuração cancelada.`),
 
     // Buttons
     buttonsSetup: new ActionRowBuilder()
@@ -33,7 +38,12 @@ module.exports = {
                 .setCustomId('button:SetupChannels')
                 .setStyle(ButtonStyle.Secondary)
                 .setLabel('Cargos')
-                .setEmoji('💬')
+                .setEmoji('💬'),
+            new ButtonBuilder()
+                .setCustomId('button:SetupCancel')
+                .setStyle(ButtonStyle.Danger)
+                .setLabel('Cancelar')
+                .setEmoji('🙅')
         ),
 
     buttonsSetupRoles: new ActionRowBuilder()
@@ -62,7 +72,7 @@ module.exports = {
                 .setCustomId('button:SetupRoles:Boosters')
                 .setStyle(ButtonStyle.Secondary)
                 .setLabel('Booster')
-                .setEmoji('💠'),
+                .setEmoji('💠')
         ),
 
     buttonsSetupChannels: new ActionRowBuilder()
@@ -71,6 +81,6 @@ module.exports = {
                 .setCustomId('button:SetupChannels:BoostChannel')
                 .setStyle(ButtonStyle.Secondary)
                 .setLabel('Anúncio de Boost')
-                .setEmoji('💠')
+                .setEmoji('💠'),
         )
 }

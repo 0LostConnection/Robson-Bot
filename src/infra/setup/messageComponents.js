@@ -37,7 +37,7 @@ module.exports = {
             new ButtonBuilder()
                 .setCustomId('button:SetupChannels')
                 .setStyle(ButtonStyle.Secondary)
-                .setLabel('Cargos')
+                .setLabel('Canais')
                 .setEmoji('💬'),
             /* new ButtonBuilder()
                 .setCustomId('button:SetupCancel')

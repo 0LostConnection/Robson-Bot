@@ -1,4 +1,5 @@
 const eventStructure = require(`../../infra/structures/EventStructure`)
+const Database = require('../../database/Database')
 const { EmbedBuilder } = require('discord.js')
 const boostMessages = [
     '**Acabou de dar boost no servidor! :scream_cat:**',
@@ -14,9 +15,13 @@ module.exports = class extends eventStructure {
     }
 
     run = async (memberBefore, memberAfter) => {
-        const { boosterRoleId, boosterAnnouncementChannelId, Colors } = memberAfter.client.config
-        const rolesBefore = memberBefore.roles.cache.find(role => role.id === boosterRoleId)
-        const rolesAfter = memberAfter.roles.cache.find(role => role.id === boosterRoleId)
+        const db = await Database(memberAfter.guild.id)
+        const { boostersRoleId } = db.guild.setup.roles
+        const { boosterAnnouncementChannelId } = db.guild.setup.channels
+        await db.disconnect()
+        const { Colors } = memberAfter.client.config
+        const rolesBefore = memberBefore.roles.cache.find(role => role.id === boostersRoleId)
+        const rolesAfter = memberAfter.roles.cache.find(role => role.id === boostersRoleId)
 
         if (!rolesBefore && rolesAfter) {
             const randomMessage = boostMessages[Math.floor(Math.random() * boostMessages.length)]

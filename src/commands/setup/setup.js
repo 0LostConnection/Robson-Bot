@@ -1,3 +1,5 @@
+const { embedSetup, embedSetupRoles, embedSetupChannels, buttonsSetup, buttonsSetupRoles, buttonsSetupChannels } = require('../../infra/setup/messageComponents')
+const { roleCollector, channelCollector } = require('../../infra/setup/setupFunctions')
 const Command = require('../../infra/structures/CommandStructure')
 const { PermissionFlagsBits } = require('discord.js')
 
@@ -5,80 +7,69 @@ module.exports = class extends Command {
     constructor(client) {
         super(client, {
             name: 'setup',
-            description: 'Configurar dados do servidor no bot.',
-            dm_permission: false,
-            default_member_permissions: Number(PermissionFlagsBits.ManageThreads),
-            options: [
-                {
-                    type: 1, // SUB_COMMAND
-                    name: 'canais',
-                    description: 'empty for now',
-                    options: [
-                        {
-                            type: 3, // STRING
-                            name: 'cargo',
-                            description: 'empty for now',
-                            required: true,
-                            choices: [
-                                {
-                                    name: 'Canal de Boost',
-                                    value: 'boosterAnnouncementChannel'
-                                },
-                            ]
-                        },
-                        {
-                            type: 7, // CHANNEL
-                            name: 'canal',
-                            description: 'empty for now',
-                            required: true
-                        }
-                    ]
-                },
-                {
-                    type: 1, // SUB_COMMAND
-                    name: 'cargos',
-                    description: 'empty for now',
-                    options: [
-                        {
-                            type: 3, // STRING
-                            name: 'cargo',
-                            description: 'empty for now',
-                            required: true,
-                            choices: [
-                                {
-                                    name: 'Staff',
-                                    value: 'staffRole'
-                                },
-                                {
-                                    name: 'Adminstrador',
-                                    value: 'adminRole'
-                                },
-                                {
-                                    name: 'Moderador',
-                                    value: 'modRole'
-                                },
-                                {
-                                    name: 'Mod Eventos',
-                                    value: 'eventsModRole'
-                                }
-                            ]
-                        },
-                        {
-                            type: 8, // ROLE
-                            name: 'menção',
-                            description: 'empty for now',
-                            required: true
-                        }
-                    ]
-                },
-            ]
+            description: 'setup',
+            default_member_permissions: Number(PermissionFlagsBits.ManageGuild),
+            dm_premission: false
         })
     }
 
-    run = async (interaction) => {
-        const subCommand = interaction.options.getSubcommand()
+    run = (interaction) => {
+        // First setup page
+        interaction.reply({ embeds: [embedSetup], components: [buttonsSetup] })
 
-        console.log(subCommand, choice)
-        //require(`../../subCommands/setup/${subCommand}`)(this.client, interaction)
+        const buttonFilter = i => i.user.id === interaction.user.id
+        let buttonCollector = interaction.channel.createMessageComponentCollector({ buttonFilter, time: 15000 })
+
+        // Secong setup page: Roles or Channels
+        buttonCollector.on('collect', async i => {
+            switch (i.customId) {
+                case 'button:SetupRoles':
+                    i.update({ embeds: [embedSetupRoles], components: [buttonsSetupRoles] })
+                    buttonCollector.stop()
+
+                    // Start of the second step: initializing collector and doing some shit
+                    buttonCollector = interaction.channel.createMessageComponentCollector({ buttonFilter, time: 15000 })
+                    buttonCollector.on('collect', async i => {
+                        switch (i.customId) {
+                            case 'button:SetupRoles:Staff':
+                                buttonCollector.stop()
+                                roleCollector(i, 'staffRoleId')
+                                break
+                            case 'button:SetupRoles:Adms':
+                                buttonCollector.stop()
+                                roleCollector(i, 'adminRoleId')
+                                break
+                            case 'button:SetupRoles:Mods':
+                                buttonCollector.stop()
+                                roleCollector(i, 'modRoleId')
+                                break
+                            case 'button:SetupRoles:EventsMods':
+                                buttonCollector.stop()
+                                roleCollector(i, 'eventsModRoleId')
+                                break
+                            case 'button:SetupRoles:Boosters':
+                                buttonCollector.stop()
+                                roleCollector(i, 'boostersRoleId')
+                                break
+                        }
+                    })
+                    break
+                case 'button:SetupChannels':
+                    i.update({ embeds: [embedSetupChannels], components: [buttonsSetupChannels] })
+                    buttonCollector.stop()
+
+                    // Start of the second step: initializing collector and doing some shit
+                    buttonCollector = interaction.channel.createMessageComponentCollector({ buttonFilter, time: 15000 })
+                    buttonCollector.on('collect', async i => {
+                        switch (i.customId) {
+                            case 'button:SetupChannels:BoostChannel':
+                                buttonCollector.stop()
+                                channelCollector(i, 'boosterAnnouncementChannelId')
+                                break
+                        }
+                    })
+                    break
+            }
+        })
     }
 }

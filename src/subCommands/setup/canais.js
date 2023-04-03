@@ -1,7 +1,7 @@
 const Database = require('../../../database/Database')
 
 module.exports = async (client, interaction) => {
-    switch(interaction.options.resolved)
+    //switch(interaction.options.resolved)
 
 /*     const channel = interaction.options.getChannel('canal')
     const { Embeds } = client.config

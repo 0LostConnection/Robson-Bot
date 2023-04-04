@@ -16,7 +16,6 @@ module.exports = class extends eventStructure {
     }
 
     run = async (memberBefore, memberAfter) => {
-        console.log('ok')
         const db = await Database(memberAfter.guild.id)
         const { boostersRoleId } = db.guild.setup.roles
         const { boosterAnnouncementChannelId } = db.guild.setup.channels

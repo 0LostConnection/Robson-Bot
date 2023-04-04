@@ -89,6 +89,7 @@ module.exports = class extends Client {
 
                 try {
                     const event = new (eventClass)(this)
+                    if (event.disabled) continue
                     this.on(event.name, event.run)
                 } catch (err) {
                     console.log(err)

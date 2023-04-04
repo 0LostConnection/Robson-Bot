@@ -10,11 +10,13 @@ const boostMessages = [
 module.exports = class extends eventStructure {
     constructor(client) {
         super(client, {
-            name: 'guildMemberUpdate'
+            name: 'guildMemberUpdate',
+            disabled: true
         })
     }
 
     run = async (memberBefore, memberAfter) => {
+        console.log('ok')
         const db = await Database(memberAfter.guild.id)
         const { boostersRoleId } = db.guild.setup.roles
         const { boosterAnnouncementChannelId } = db.guild.setup.channels

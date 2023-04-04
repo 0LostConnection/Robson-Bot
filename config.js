@@ -1,24 +1,6 @@
 const { EmbedBuilder } = require('discord.js')
 
 module.exports = {
-    // Guild
-    guildId: "826168701987455016",
-
-    // Guild - Roles
-    staffRoleId: "852209223289798696",
-    adminRoleId: "981330093806866432",
-    modRoleId: "981640630776242236",
-    eventsModRoleId: "981330099917975592",
-    boostersRoleId: "852596291128655885",
-
-    // Guild - Webhooks
-    webhooks: {
-        error: {
-            id: '',
-            token: '',
-        }
-    },
-
     // Bot
     version: require('./package.json').version,
 

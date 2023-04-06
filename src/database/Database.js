@@ -13,7 +13,7 @@ module.exports = async (guildId) => {
 
     const database = { databaseConnection, ...Models }
     return {
-        //client: await database.client 
+        config: database.config || new database.config(),
         guild: await database.guilds.findById(guildId) || new database.guilds({ _id: guildId }),
         disconnect: () => {
             connection.close(function (err) {

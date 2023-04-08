@@ -7,7 +7,7 @@ module.exports = class extends Command {
     constructor(client) {
         super(client, {
             name: 'setup',
-            description: 'setup',
+            description: 'Configuração do bot.',
             default_member_permissions: Number(PermissionFlagsBits.ManageGuild),
             dm_premission: false
         })

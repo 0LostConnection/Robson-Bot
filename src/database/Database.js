@@ -16,14 +16,8 @@ module.exports = async (guildId) => {
         config: database.config || new database.config(),
         guild: await database.guilds.findById(guildId) || new database.guilds({ _id: guildId }),
         disconnect: () => {
-            connection.close(function (err) {
-                if (err) {
-                    console.error('Erro ao desconectar do banco de dados: ' + err);
-                } else {
-                    disconnect()
-                    //console.log('\x1b[32m%s\x1b[0m', 'Desconexão do banco de dados bem-sucedida!');
-                }
-            });
+            connection.close()
+            disconnect()
         }
     }
 }

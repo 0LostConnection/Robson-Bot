@@ -1,6 +1,6 @@
 {
   "name": "robson-bot",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Discord Bot",
   "main": "index.js",
   "repository": {
@@ -16,6 +16,6 @@
   "dependencies": {
     "discord.js": "^14.9.0",
     "dotenv": "^16.0.3",
-    "mongoose": "^6.10.4"
+    "mongoose": "^7.0.3"
   }
 }

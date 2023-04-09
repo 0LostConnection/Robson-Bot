@@ -4,14 +4,15 @@ const guildSchema = new Schema({
     _id: String,
     setup: {
         channels: {
-            boosterAnnouncementChannelId: String
+            boosterAnnouncementChannelId: String,
+            eventsCategoryId: String,
         },
         roles: {
             staffRoleId: String,
             adminRoleId: String,
             modRoleId: String,
             eventsModRoleId: String,
-            boostersRoleId: String
+            boostersRoleId: String,
         }
     }
 })

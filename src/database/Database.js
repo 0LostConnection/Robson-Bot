@@ -8,7 +8,7 @@ module.exports = async (guildId) => {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
-        .then(() => console.log('\x1b[32m%s\x1b[0m', 'Banco de dados conectado com sucesso!'))
+        //.then(() => console.log('\x1b[32m%s\x1b[0m', 'Banco de dados conectado com sucesso!'))
         .catch(err => console.error('Erro ao conectar com MongoDB: ' + err));
 
     const database = { databaseConnection, ...Models }
@@ -21,7 +21,7 @@ module.exports = async (guildId) => {
                     console.error('Erro ao desconectar do banco de dados: ' + err);
                 } else {
                     disconnect()
-                    console.log('\x1b[32m%s\x1b[0m', 'Desconexão do banco de dados bem-sucedida!');
+                    //console.log('\x1b[32m%s\x1b[0m', 'Desconexão do banco de dados bem-sucedida!');
                 }
             });
         }

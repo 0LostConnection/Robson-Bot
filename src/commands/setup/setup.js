@@ -64,7 +64,11 @@ module.exports = class extends Command {
                         switch (i.customId) {
                             case 'button:SetupChannels:BoostChannel':
                                 buttonCollector.stop()
-                                channelCollector(i, 'boosterAnnouncementChannelId')
+                                channelCollector(i, 'boosterAnnouncementChannelId', 0)
+                                break
+                            case 'button:SetupChannels:EventsCategory':
+                                buttonCollector.stop()
+                                channelCollector(i, 'eventsCategoryId', 4)
                                 break
                         }
                     })

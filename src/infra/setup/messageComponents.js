@@ -82,5 +82,10 @@ module.exports = {
                 .setStyle(ButtonStyle.Secondary)
                 .setLabel('Anúncio de Boost')
                 .setEmoji('💠'),
+            new ButtonBuilder()
+                .setCustomId('button:SetupChannels:EventsCategory')
+                .setStyle(ButtonStyle.Secondary)
+                .setLabel('Categoria de Eventos')
+                .setEmoji('🎉'),
         )
 }

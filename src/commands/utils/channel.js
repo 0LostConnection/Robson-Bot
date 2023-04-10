@@ -1,4 +1,5 @@
 const Command = require('../../infra/structures/CommandStructure')
+const Database = require('../../database/Database')
 
 module.exports = class extends Command {
     constructor(client) {
@@ -33,7 +34,7 @@ module.exports = class extends Command {
         })
     }
 
-    run = (interaction) => {
+    run = async (interaction) => {
         // Filtrar cargo da pessoa por moderador, administrador e eventos
         /* switch(subCommand) {
             case "lock":
@@ -45,15 +46,19 @@ module.exports = class extends Command {
             case "unview":
                 break 
         } */
+        interaction.deferReply({ ephemeral: true })
+
+        const db = await Database(interaction.guild.id)
+
         const { Embeds } = interaction.client.config
-        const { adminRoleId, modRoleId, eventsModRoleId } = interaction.client.config
+        const { adminRoleId, modRoleId, eventsModRoleId, staffRoleId } = db.guild.setup.roles
+        db.disconnect()
 
         if (interaction.member.roles.cache.find(r => r.id === adminRoleId) || interaction.member.roles.cache.find(r => r.id === modRoleId) || interaction.member.roles.cache.find(r => r.id === eventsModRoleId)) {
             const subCommand = interaction.options.getSubcommand()
-            require(`../../subCommands/channel/${subCommand}`)(this.client, interaction)
+            require(`../../subCommands/channel/${subCommand}`)(this.client, interaction, staffRoleId)
         } else {
-            interaction.reply({ embeds: [Embeds.ERROR("**❌ | Você não tem permissão para executar esse comando!**", interaction)], ephemeral: true })
-            return
+            return interaction.editReply({ embeds: [Embeds.ERROR("**❌ | Você não tem permissão para executar esse comando!**", interaction)], ephemeral: true })
         }
     }
 }

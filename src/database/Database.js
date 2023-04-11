@@ -13,7 +13,7 @@ class Database {
             useNewUrlParser: true,
             useUnifiedTopology: true
         })
-            .then(() => console.log('\x1b[32m%s\x1b[0m', 'Banco de dados conectado com sucesso!'))
+            //.then(() => console.log('\x1b[32m%s\x1b[0m', 'Banco de dados conectado com sucesso!'))
             .catch(err => console.error('Erro ao conectar com MongoDB: ' + err));
 
         const database = { databaseConnection, ...Models }
@@ -22,7 +22,7 @@ class Database {
             guild: await database.guilds.findById(this.guildId) || new database.guilds({ _id: this.guildId }),
             disconnect: () => {
                 connection.close()
-                disconnect().then(() => console.log('\x1b[32m%s\x1b[0m', 'Banco de dados desconectado com sucesso!'))
+                disconnect()//.then(() => console.log('\x1b[32m%s\x1b[0m', 'Banco de dados desconectado com sucesso!'))
             }
         }
     }

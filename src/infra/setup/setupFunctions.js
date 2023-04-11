@@ -14,11 +14,13 @@ module.exports = {
             if (m.mentions.roles.size > 1) return interaction.channel.send({ embeds: [interaction.client.config.Embeds.ERROR('Por favor, mencione apenas __um__ `@cargo`!', interaction)] })
             const roleId = m.mentions.roles.first().id
 
-            const db = await new Database(interaction.guild.id).connect()
-            db.guild.setup.roles[databaseEntry] = roleId
+            const db = new Database(interaction.guild.id)
+            const connection = await db.connect()
 
-            await db.guild.save()
-            await db.disconnect()
+            connection.guild.setup.roles[databaseEntry] = roleId
+
+            await connection.guild.save()
+            await connection.disconnect()
 
             interaction.channel.send({ embeds: [interaction.client.config.Embeds.SUCCESS('**Configuração salva com sucesso!**')] })
             //console.log(m.mentions.roles.first().id, databaseEntry)
@@ -40,11 +42,13 @@ module.exports = {
             
             const channelId = m.mentions.channels.first().id
 
-            const db = await new Database(interaction.guild.id).connect()
-            db.guild.setup.channels[databaseEntry] = channelId
+            const db = new Database(interaction.guild.id)
+            const connection = await db.connect()
 
-            await db.guild.save()
-            await db.disconnect()
+            connection.guild.setup.channels[databaseEntry] = channelId
+
+            await connection.guild.save()
+            await connection.disconnect()
 
             interaction.channel.send({ embeds: [interaction.client.config.Embeds.SUCCESS('**Configuração salva com sucesso!**')] })
             //console.log(m.mentions.channels.first().id, databaseEntry)

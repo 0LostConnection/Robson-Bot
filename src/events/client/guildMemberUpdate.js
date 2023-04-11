@@ -16,10 +16,13 @@ module.exports = class extends eventStructure {
     }
 
     run = async (memberBefore, memberAfter) => {
-        const db = await new Database(memberAfter.guild.id).connect()
-        const { boostersRoleId } = db.guild.setup.roles
-        const { boosterAnnouncementChannelId } = db.guild.setup.channels
-        await db.disconnect()
+        const db = new Database(memberAfter.guild.id)
+        const connection = await db.connect()
+
+        const { boostersRoleId } = connection.guild.setup.roles
+        const { boosterAnnouncementChannelId } = connection.guild.setup.channels
+        await connection.disconnect()
+
         const { Colors } = memberAfter.client.config
         const rolesBefore = memberBefore.roles.cache.find(role => role.id === boostersRoleId)
         const rolesAfter = memberAfter.roles.cache.find(role => role.id === boostersRoleId)

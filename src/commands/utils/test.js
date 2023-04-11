@@ -13,9 +13,9 @@ module.exports = class extends Command {
     }
 
     run = async (interaction) => {
-        const db = await Database(interaction.guild.id)
-        db.config.webhooks.ERROR.id = '123123123123123'
-        console.log(db.config)
-        db.disconnect()
+        // Testing new database class
+        const db = await new Database(interaction.guild.id).connect()
+        console.log(db)
+        await db.disconnect()
     }
 }

@@ -14,7 +14,7 @@ module.exports = {
             if (m.mentions.roles.size > 1) return interaction.channel.send({ embeds: [interaction.client.config.Embeds.ERROR('Por favor, mencione apenas __um__ `@cargo`!', interaction)] })
             const roleId = m.mentions.roles.first().id
 
-            const db = await Database(interaction.guild.id)
+            const db = await new Database(interaction.guild.id).connect()
             db.guild.setup.roles[databaseEntry] = roleId
 
             await db.guild.save()
@@ -40,7 +40,7 @@ module.exports = {
             
             const channelId = m.mentions.channels.first().id
 
-            const db = await Database(interaction.guild.id)
+            const db = await new Database(interaction.guild.id).connect()
             db.guild.setup.channels[databaseEntry] = channelId
 
             await db.guild.save()

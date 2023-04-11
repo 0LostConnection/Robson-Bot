@@ -45,11 +45,11 @@ module.exports = class extends Command {
     run = async (interaction) => {
         interaction.deferReply({ ephemeral: true })
 
-        const db = await Database(interaction.guild.id)
+        const db = await new Database(interaction.guild.id).connect()
 
         const { Embeds } = interaction.client.config
         const { adminRoleId, eventsModRoleId } = db.guild.setup.roles
-        db.disconnect()
+        await db.disconnect()
 
         if (interaction.member.roles.cache.find(r => r.id === adminRoleId) || interaction.member.roles.cache.find(r => r.id === eventsModRoleId)) {
             const subCommand = interaction.options.getSubcommand()

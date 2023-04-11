@@ -12,11 +12,11 @@ module.exports = async (client, interaction) => {
 
     switch (channelFunction) {
         case 'channelFunction:Event':
-            const db = await Database(interaction.guild.id)
+            const db = await new Database(interaction.guild.id).connect()
             const { eventsCategoryId } = db.guild.setup.channels
             const { eventsModRoleId, staffRoleId } = db.guild.setup.roles
 
-            db.disconnect()
+            await db.disconnect()
 
             if (channelEmoji) channelName = `・${channelEmoji}・${channelName}`
 

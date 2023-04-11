@@ -33,6 +33,17 @@ module.exports = class extends Command {
                         },
                         {
                             type: 3,
+                            name: 'separador',
+                            description: 'Separador do canal. ex: ・🐂・canal',
+                            choices: [
+                                {
+                                    name: '・',
+                                    value: 'nameSeparator:dot'
+                                }
+                            ]
+                        },
+                        {
+                            type: 3,
                             name: 'emoji',
                             description: 'Emoji do canal.',
                         }

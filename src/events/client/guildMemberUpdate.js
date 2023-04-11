@@ -11,12 +11,12 @@ module.exports = class extends eventStructure {
     constructor(client) {
         super(client, {
             name: 'guildMemberUpdate',
-            disabled: true
+            disabled: false
         })
     }
 
     run = async (memberBefore, memberAfter) => {
-        const db = await Database(memberAfter.guild.id)
+        const db = await new Database(memberAfter.guild.id).connect()
         const { boostersRoleId } = db.guild.setup.roles
         const { boosterAnnouncementChannelId } = db.guild.setup.channels
         await db.disconnect()

@@ -18,7 +18,6 @@ class Database {
 
         const database = { databaseConnection, ...Models }
         return {
-            //config: database.config || new database.config(),
             guild: await database.guilds.findById(this.guildId) || new database.guilds({ _id: this.guildId }),
             disconnect: () => {
                 connection.close()

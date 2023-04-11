@@ -11,7 +11,7 @@ module.exports = class extends eventStructure {
     constructor(client) {
         super(client, {
             name: 'guildMemberUpdate',
-            disabled: false
+            disabled: true
         })
     }
 

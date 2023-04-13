@@ -7,7 +7,12 @@ const contactButton = new ActionRowBuilder()
             .setStyle(ButtonStyle.Link)
             .setLabel('Contacte-me!')
             .setEmoji('🔗')
-            .setURL('https://discord.com/users/437249534096048130')
+            .setURL('https://discord.com/users/437249534096048130'),
+        new ButtonBuilder()
+            .setStyle(ButtonStyle.Link)
+            .setLabel('GitHub')
+            .setEmoji('🦇')
+            .setURL('https://github.com/0LostConnection/Robson-Bot/tree/MiniFazenda-Utils')
     )
 
 module.exports = class extends Command {

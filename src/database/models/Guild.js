@@ -2,9 +2,19 @@ const { Schema, model } = require('mongoose')
 
 const guildSchema = new Schema({
     _id: String,
-    vips: [
-        Object
-    ],
+    setup: {
+        channels: {
+            boosterAnnouncementChannelId: String,
+            eventsCategoryId: String,
+        },
+        roles: {
+            staffRoleId: String,
+            adminRoleId: String,
+            modRoleId: String,
+            eventsModRoleId: String,
+            boostersRoleId: String,
+        }
+    }
 })
 
 module.exports = model('guilds', guildSchema)

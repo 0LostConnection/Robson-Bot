@@ -1,17 +1,15 @@
 const DiscordClientHandler = require('./src/infra/structures/DiscordClientHandler')
-// const { BOT_TOKEN } = require('./assets/config.json')
 const { GatewayIntentBits } = require('discord.js')
-require('dotenv').config() //process.env.BOT_TOKEN
+require('dotenv').config({ path: './release.env' })
 
 const botInstance = new DiscordClientHandler({
     intents: [
         GatewayIntentBits.Guilds,
-        GatewayIntentBits.GuildMembers
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent
     ]
 })
 
-process.openStdin('unhandledRejection', error => {
-    console.error("Error:\n", error)
-})
-
-botInstance.login(process.env.DEV_BOT_TOKEN)
+botInstance.config = require('./config.js')
+botInstance.login(process.env.BOT_TOKEN)

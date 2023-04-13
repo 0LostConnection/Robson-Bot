@@ -3,7 +3,8 @@ const eventStructure = require(`../../infra/structures/EventStructure`)
 module.exports = class extends eventStructure {
     constructor(client) {
         super(client, {
-            name: 'interactionCreate'
+            name: 'interactionCreate',
+            disabled: true
         })
     }
 

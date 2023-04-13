@@ -2,7 +2,7 @@
 Robson -  Bot oficial do <a href="https://discord.gg/minifazenda" target="_blank">Mini Fazenda</a> 🐂
 </h1>
 
-<p align="center" style="border-radius: 50%;">
+<p align="center">
   <img src="https://i.imgur.com/1UgYUYp.png" />
 </p>
 

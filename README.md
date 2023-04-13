@@ -41,7 +41,7 @@ statusArray: [
         }
     ],
 ```
-*NOTE: The object key `type` needs to be a number. For more references, [click here](https://discord-api-types.dev/api/discord-api-types-v10/enum/ActivityType).* 
+*NOTE: The object key `type` needs to be a number. For more references, <a href="https://discord-api-types.dev/api/discord-api-types-v10/enum/ActivityType/" target="_blank">click here</a>.* 
 
 ### 2. Starting the bot
 Just type `node index.js`.

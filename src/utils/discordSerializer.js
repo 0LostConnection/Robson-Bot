@@ -1,26 +1,22 @@
-function getGuildChannels(guild, stringify = false, mostMinimal = true) {
+function getGuildChannels(guild, stringify = false) {
     if (!guild) return undefined;
     const obj = {};
-    if (mostMinimal) {
-        if (guild.channels !== undefined) obj.channels = guild.channels?.cache?.map?.(s => formatChannel(s, false, true, true));
-        return stringify ? JSON.stringify(obj) : obj
-    }
-    if (guild.channels !== undefined) obj.channels = guild.channels?.cache?.map?.(s => formatChannel(s, true, true, true));
-    return stringify ? JSON.stringify(obj) : obj
+    if (guild.channels !== undefined) obj.channels = guild.channels?.cache?.map?.(s => formatChannel(s, false, false, true));
+    return stringify ? JSON.stringify(obj, null, 4) : obj
 }
 
 function formatChannel(channel, minimal = false, stringify = false, mostMinimal = false) {
     if (!channel) return undefined;
     const obj = {};
     if (mostMinimal) {
-        if (channel.name !== undefined) obj.name = channel.name;
-        if (channel.id !== undefined) obj.id = channel.id;
-        if (channel.type !== undefined) obj.type = channel.type;
-        if (channel.parentId !== undefined) obj.parentId = channel.parentId;
-        if (channel.position !== undefined) obj.position = channel.position;
-        return stringify ? JSON.stringify(obj) : obj;
+        if ([0, 2, 15, 5, 15].includes(channel.type)) {
+            if (channel.name !== undefined) obj.name = channel.name;
+            if (channel.id !== undefined) obj.id = channel.id;
+            obj.type = channel.type;
+            return stringify ? JSON.stringify(obj) : obj;
+        }
     }
-
+    
     if (channel.id !== undefined) obj.id = channel.id;
     if (channel.name !== undefined) obj.name = channel.name;
     if (channel.type !== undefined) obj.type = channel.type;

@@ -21,8 +21,8 @@ module.exports = class extends Command {
 
         const { getGuildChannels } = require('../../utils/discordSerializer')
 
-        const guildChannels = getGuildChannels(interaction.guild, false, true)
-        console.log(guildChannels)
+        const guildChannels = getGuildChannels(interaction.guild, true, true)
+        interaction.reply({ content: `\`\`\`json\n${guildChannels}\n\`\`\``, ephemeral: true })
 
     }
 }

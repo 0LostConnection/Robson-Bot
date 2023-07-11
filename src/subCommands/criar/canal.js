@@ -7,7 +7,6 @@ module.exports = async (client, interaction) => {
     }
 
     const channelFunction = interaction.options.getString('função')
-    const channelNameSeparator = interaction.options.getString('separador')
     const channelEmoji = interaction.options.getString('emoji')
     let channelName = interaction.options.getString('nome')
 
@@ -19,15 +18,7 @@ module.exports = async (client, interaction) => {
 
             await db.disconnect()
 
-            if (channelEmoji && !channelNameSeparator) channelName = `${channelEmoji}-${channelName}`
-
-            if (channelNameSeparator && channelEmoji) {
-                switch (channelNameSeparator) {
-                    case 'nameSeparator:dot':
-                        channelName = `・${channelEmoji}・${channelName}`
-                        break
-                }
-            }
+            if (channelEmoji) channelName = `・${channelEmoji}・${channelName}`
 
             channel = interaction.guild.channels.create({
                 name: channelName,
@@ -40,7 +31,7 @@ module.exports = async (client, interaction) => {
                     },
                     {
                         id: eventsModRoleId,
-                        allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ManageChannels]
+                        allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]
                     },
                     {
                         id: staffRoleId,

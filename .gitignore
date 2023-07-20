@@ -106,3 +106,5 @@ dist
 
 config.json
 .vscode
+
+src/database/cache/*.*

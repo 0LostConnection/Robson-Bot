@@ -16,6 +16,7 @@ module.exports = class extends eventStructure {
             const guildDB = new GuildDB()
             const guild = await guildDB.guild(guildId)
             const tempJson = {
+                backupVentingChannelId: guild.setup.channels.backupVentingChannelId ? guild.setup.channels.backupVentingChannelId : null,
                 ventingChannelId: guild.setup.channels.ventingChannelId ? guild.setup.channels.ventingChannelId : null
             }
 

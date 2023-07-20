@@ -11,7 +11,7 @@ module.exports = class extends Client {
     }
 
     deployCommands(commandsCategoriesPath = 'src/commands') {
-        const commandsToDeploy = []
+        let commandsToDeploy = []
         const commandsCategories = readdirSync(commandsCategoriesPath)
 
         for (const category of commandsCategories) {

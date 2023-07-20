@@ -7,6 +7,7 @@ const guildSchema = new Schema({
             boosterAnnouncementChannelId: String,
             eventsCategoryId: String,
             ventingChannelId: String,
+            backupVentingChannelId: String,
         },
         roles: {
             staffRoleId: String,

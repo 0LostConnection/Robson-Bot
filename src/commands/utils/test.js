@@ -1,22 +1,23 @@
 const Command = require('../../infra/structures/CommandStructure')
-const Database = require('../../database/Database')
+const GuildDB = require('../../database/GuildDB')
 
 module.exports = class extends Command {
     constructor(client) {
         super(client, {
             name: 'test',
             description: 'Teste :)',
-            disabled: true,
+            disabled: false,
             default_member_permissions: null,
             dm_permission: false,
         })
     }
 
     run = async (interaction) => {
-        // Testing new database class
-        const db = await new Database(interaction.guild.id).connect()
-        db.config.webhooks.ERROR.id = '123123123'
-        db.config.save()
-        await db.disconnect()
+        const guildDB = new GuildDB()
+        const guild = await guildDB.guild(interaction.guild.id)
+        guild.setup.roles.staffRoleId = '1023701403371323463'
+        await guild.save()
+        guildDB.disconnect()
+        console.log(guild)
     }
 }

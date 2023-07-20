@@ -1,30 +1,27 @@
-class Database {
-    constructor(guildId) {
-        this.guildId = guildId
+const mongoose = require('mongoose');
+
+module.exports = class Database {
+    constructor(url) {
+        this.url = url;
     }
 
     async connect() {
-        if (!this.guildId) return console.log('Provide and ID!')
-        const { connect, set, connection, disconnect } = require('mongoose')
-        const Models = require('./Models')
+        try {
+            mongoose.set("strictQuery", true)
+            await mongoose.connect(this.url, { useNewUrlParser: true, useUnifiedTopology: true });
+            //console.log('Conexão bem-sucedida ao banco de dados!')
+            return mongoose.connection
+        } catch (error) {
+            console.error('Erro ao conectar ao banco de dados:', error);
+        }
+    }
 
-        set("strictQuery", true)
-        const databaseConnection = await connect(process.env.DATABASE_SECRET, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        })
-            //.then(() => console.log('\x1b[32m%s\x1b[0m', 'Banco de dados conectado com sucesso!'))
-            .catch(err => console.error('Erro ao conectar com MongoDB: ' + err));
-
-        const database = { databaseConnection, ...Models }
-        return {
-            guild: await database.guilds.findById(this.guildId) || new database.guilds({ _id: this.guildId }),
-            disconnect: () => {
-                connection.close()
-                disconnect()//.then(() => console.log('\x1b[32m%s\x1b[0m', 'Banco de dados desconectado com sucesso!'))
-            }
+    async disconnect() {
+        try {
+            await mongoose.disconnect()
+            //console.log('Desconectado do banco de dados.');
+        } catch (error) {
+            console.error('Erro ao desconectar do banco de dados:', error);
         }
     }
 }
-
-module.exports = Database

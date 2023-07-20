@@ -17,7 +17,7 @@ module.exports = class extends Command {
         const guild = await guildDB.guild(interaction.guild.id)
         guild.setup.roles.staffRoleId = '1023701403371323463'
         await guild.save()
-        guildDB.disconnect()
+        await guildDB.disconnect()
         console.log(guild)
     }
 }

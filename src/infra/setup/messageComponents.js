@@ -78,6 +78,16 @@ module.exports = {
     buttonsSetupChannels: new ActionRowBuilder()
         .addComponents(
             new ButtonBuilder()
+                .setCustomId('button:SetupChannels:VentingChannel')
+                .setStyle(ButtonStyle.Secondary)
+                .setLabel('Desabafos')
+                .setEmoji('😔'),
+                new ButtonBuilder()
+                .setCustomId('button:SetupChannels:BackupVentingChannel')
+                .setStyle(ButtonStyle.Secondary)
+                .setLabel('Backup Desabafos')
+                .setEmoji('🧭'),
+            new ButtonBuilder()
                 .setCustomId('button:SetupChannels:BoostChannel')
                 .setStyle(ButtonStyle.Secondary)
                 .setLabel('Anúncio de Boost')

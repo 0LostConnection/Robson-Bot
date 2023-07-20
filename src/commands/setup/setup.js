@@ -9,7 +9,8 @@ module.exports = class extends Command {
             name: 'setup',
             description: 'Configuração do bot.',
             default_member_permissions: Number(PermissionFlagsBits.ManageGuild),
-            dm_premission: false
+            dm_premission: false,
+            disabled: false
         })
     }
 
@@ -62,6 +63,14 @@ module.exports = class extends Command {
                     buttonCollector = interaction.channel.createMessageComponentCollector({ buttonFilter, time: 15000 })
                     buttonCollector.on('collect', async i => {
                         switch (i.customId) {
+                            case 'button:SetupChannels:VentingChannel':
+                                buttonCollector.stop()
+                                channelCollector(i, 'ventingChannelId', 0)
+                                break
+                            case 'button:SetupChannels:BackupVentingChannel':
+                                buttonCollector.stop()
+                                channelCollector(i, 'backupVentingChannelId', 0)
+                                break
                             case 'button:SetupChannels:BoostChannel':
                                 buttonCollector.stop()
                                 channelCollector(i, 'boosterAnnouncementChannelId', 0)

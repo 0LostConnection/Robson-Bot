@@ -6,7 +6,7 @@ module.exports = class extends Command {
         super(client, {
             name: 'test',
             description: 'Teste :)',
-            disabled: false,
+            disabled: true,
             default_member_permissions: null,
             dm_permission: false,
         })

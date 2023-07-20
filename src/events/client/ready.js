@@ -1,18 +1,6 @@
 const eventStructure = require(`../../infra/structures/EventStructure`)
-const setPresence = (client) => {
-    const { statusArray } = client.config
-    const option = Math.floor(Math.random() * statusArray.length)
-    return client.user.setPresence({
-        activities: [
-            {
-                name: statusArray[option].content,
-                type: statusArray[option].type,
-                url: statusArray[option].url
-            },
-        ],
-        status: statusArray[option].status
-    })
-}
+const GuildDB = require('../../database/GuildDB')
+const { writeFileSync } = require('fs')
 
 module.exports = class extends eventStructure {
     constructor(client) {
@@ -22,6 +10,25 @@ module.exports = class extends eventStructure {
     }
 
     run = async (interaction) => {
+        // Generate guild cache
+        const guildsID = this.client.guilds.cache.map(guild => guild.id)
+        guildsID.forEach(async guildId => {
+            const guildDB = new GuildDB()
+            const guild = await guildDB.guild(guildId)
+            const tempJson = {
+                ventingChannelId: guild.setup.channels.ventingChannelId ? guild.setup.channels.ventingChannelId : null
+            }
+
+            await guildDB.disconnect()
+
+            try {
+                writeFileSync(`${process.cwd()}/src/database/cache/${guildId}.json`, JSON.stringify(tempJson, null, 4))
+                console.log(`${guildId} cached`)
+            } catch (err) {
+                console.log(`Error caching guild id ${guildId}!`)
+            }
+        })
+
         console.log(`
 Status          Online
 Nome            ${this.client.user.tag}

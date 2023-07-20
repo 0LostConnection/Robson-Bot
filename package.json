@@ -14,8 +14,8 @@
   },
   "homepage": "https://github.com/0LostConnection/Robson-Bot#readme",
   "dependencies": {
-    "discord.js": "^14.9.0",
-    "dotenv": "^16.0.3",
-    "mongoose": "^7.0.3"
+    "discord.js": "^14.11.0",
+    "dotenv": "^16.3.1",
+    "mongoose": "^7.4.0"
   }
 }

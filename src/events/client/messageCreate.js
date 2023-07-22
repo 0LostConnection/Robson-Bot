@@ -15,6 +15,8 @@ module.exports = class extends eventStructure {
         // Venting system
         const guildCache = JSON.parse(readFileSync(`${process.cwd()}/src/database/cache/${message.guild.id}.json`, 'utf-8'))
         if (guildCache.ventingChannelId == message.channel.id) {
+            if (message.type == 19) return
+            
             try {
                 await message.delete()
 

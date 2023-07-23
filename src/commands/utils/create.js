@@ -6,6 +6,7 @@ module.exports = class extends Command {
         super(client, {
             name: 'criar',
             description: 'Cria algo baseado nas opções escolhidas.',
+            disabled: true,
             dm_permissions: false,
             options: [
                 {

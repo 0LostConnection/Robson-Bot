@@ -6,7 +6,7 @@ module.exports = class extends Command {
         super(client, {
             name: 'channel',
             description: 'Opções de utilitários para o canal.',
-            disabled: false,
+            disabled: true,
             default_member_permissions: null,
             dm_permission: false,
             options: [
